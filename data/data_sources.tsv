@@ -4,6 +4,7 @@ covid-tracking-states-daily	state	covid-tracking/states_daily_4pm_et.csv	https:/
 covid-tracking-us-current	country	covid-tracking/us_current.csv	https://github.com/COVID19Tracking/covid-tracking-data/blob/05363f00ed663709c54b066722094f966dddd1bc/data/us_current.csv	2020-04-23
 covid-tracking-us-daily	country	covid-tracking/us_daily.csv	https://github.com/COVID19Tracking/covid-tracking-data/blob/05363f00ed663709c54b066722094f966dddd1bc/data/us_daily.csv	2020-04-23
 khn-icu-beds-by-county	county	khn/data-FPBfZ.csv	https://khn.org/news/as-coronavirus-spreads-widely-millions-of-older-americans-live-in-counties-with-no-icu-beds/	2020-04-21
+khn-hospital-by-county	county	khn/KHN_ICU_bed_county_analysis_2.csv	https://khn.org/wp-content/uploads/sites/2/2020/03/KHN-ICU-bed-county-analysis_2.zip	2020-04-21
 kff-state-actions	state	kff/raw_data.csv	https://www.kff.org/health-costs/issue-brief/state-data-and-policy-actions-to-address-coronavirus/#stateleveldata	2020-04-24
 world-bank-hospital-beds	country	world-bank/API_SH.MED.BEDS.ZS_DS2_en_csv_v2_988924.csv	https://data.worldbank.org/indicator/SH.MED.BEDS.ZS	2020-04-10
 world-bank-physicians	country	world-bank/API_SH.MED.PHYS.ZS_DS2_en_csv_v2_993645.csv	https://data.worldbank.org/indicator/SH.MED.PHYS.ZS	2020-04-24
