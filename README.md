@@ -30,8 +30,6 @@ Before analyzing, we performed some steps to clean and integrate the data. The r
 
 ## List of Datasets Used
 
-We found the following datasets very useful. For more details, please refer to `data_sources.csv` in `data` folder.
-
 - Country level
     - World Bank - Hospital Beds (per 1,000 people): https://data.worldbank.org/indicator/SH.MED.BEDS.ZS
     - World Bank - Physicians (per 1,000 people): https://data.worldbank.org/indicator/SH.MED.PHYS.ZS
