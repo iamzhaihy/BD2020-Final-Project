@@ -24,15 +24,11 @@ The project is roughly divided into three parts:
 
 ## Cleaning and Integration
 
-Before analyzing, we performed some steps to clean and integrate the data. The raw datasets are stored in `data` folder and processed ones can be found in  `processed_data` folder. For reproducibility, we include a notebook `Data Processing.ipynb` detailing steps we took to make data more usable. It can be found in the root directory of the project.
+Before analyzing, we performed some steps to clean and integrate the data. The raw datasets are stored in `data` folder and processed ones can be found in  `processed_data` folder. For reproducibility, we include a notebook `Data Processing.ipynb` detailing steps we took to make data more usable. It can be found in the root directory of the project. In this notebook, we included the date we retrived the datasets. If the datasets are stored on Github, we also put in the link to the specific version we downloaded.
 
-We also include a table `./data/data_sources.csv` that contains the list of datasets we used. It also specifies the date we retrived the dataset. If the datasets are stored on Github, we include the link to the specific version we downloaded.
-
-Next section provides a simplified list of the datasets used.
+`./data/datasets_used.csv` contains the list of datasets we used for the project. A simplified list is provided in the next section.
 
 ## List of Datasets Used
-
-We found the following datasets very useful. For more details, please refer to `data_sources.csv` in `data` folder.
 
 - Country level
     - World Bank - Hospital Beds (per 1,000 people): https://data.worldbank.org/indicator/SH.MED.BEDS.ZS
