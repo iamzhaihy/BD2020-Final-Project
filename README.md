@@ -11,6 +11,16 @@ Project Participants:
 
 Analysis of the relationship between medical resource distribution, policy and mortality rate (by country, by state, by county).
 
+We are trying to answer the following questions:
+- Which countries/regions are slow/fast to take actions?
+- Are there any country/region that is ignoring the rising numbers?
+- Are there any country/region being extra cautious?
+- What patterns can we find when examining the data?
+- Do countries/regions with low medical resources tend to take more stringent actions?
+- Do countries/regions with high population density tend to take more stringent actions?
+- Do countries/regions with higher percentage of elder people tend to take more stringent actions?
+- What about states? Can we find similar patterns in the state level?
+
 ## Approach Overview
 
 The project is roughly divided into three parts:
@@ -19,14 +29,28 @@ The project is roughly divided into three parts:
     - policy information from various regions
     - medical resources (test number, hospital capacity, number of beds and ICU beds) of various regions
     - local virus outbreak curves, mortality rate, cure rate, bed utilization rate, etc. 
-- Cleaning and wrangling the data.
-- Analyzing the results to generate evaluation results.
+- Prepare the datasets
+    - cleaning unnecessary fields
+    - integrating datasets by performing joins.
+- Explore and visualize the data.
+- Observe the patterns and hopefully gain insights.
 
 ## Cleaning and Integration
 
 Before analyzing, we performed some steps to clean and integrate the data. The raw datasets are stored in `data` folder and processed ones can be found in  `processed_data` folder. For reproducibility, we include a notebook `Data Processing.ipynb` detailing steps we took to make data more usable. It can be found in the root directory of the project. In this notebook, we included the date we retrived the datasets. If the datasets are stored on Github, we also put in the link to the specific version we downloaded.
 
 `./data/datasets_used.csv` contains the list of datasets we used for the project. A simplified list is provided in the next section.
+
+## Visualization and Analysis
+We made many several charts (static and interactive) to explore the datasets we have. Static charts are stored in the `plots` folder. Interactive choropleth maps can be found [here](https://iamzhaihy.github.io/BD2020-Final-Project). More details can be found in the project report.
+
+## Report and presentations
+Both the project report and presentation slides (in PDF format) can be found in the `deliverables` folder. 
+
+## How to reproduce?
+All steps we took to process the data is detailed in `Data Processing.ipynb`. You can clone the repo and run it by yourself. The notebook relies on Python 3.8, `numpy`, `pandas`, and `matplotlib` to work.
+
+For interactive maps made in D3, you can use the link provided in the description section. Or you can clone this repo, and run a local HTTP server to see the result. If you are interested, feel free to play with JavaScript files in the `visualizations` folder.
 
 ## List of Datasets Used
 
