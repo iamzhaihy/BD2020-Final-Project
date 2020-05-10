@@ -1,4 +1,24 @@
 function countryLevelMap(geoJSON, data, div) {
+    const formatTimeStamp = (timestamp) => {
+        return `${timestamp.slice(0,4)}-${timestamp.slice(4,6)}-${timestamp.slice(6,8)}`;
+    }
+
+    const updateToolTip = (datum, coords) => {
+        let valName;
+        if (datum.properties.hasOwnProperty('confirmed'))
+            valName = 'confirmed';
+        else
+            valName = 'stringency_index';
+        
+        let val = datum.properties[valName]
+
+        d3.select('#country-tooltip')
+            .style('top', coords[1])
+            .style('left', coords[0])
+            .style('display', 'block')
+            .html(`${datum.properties.NAME}<br>${valName} : ${val}`)
+    }
+
     const updateGraphData = (data_index, selected_date) => {
         stringency_data = geoJSON.features.map(f => {
             const ccode = f.properties.ISO_A3;
@@ -41,7 +61,16 @@ function countryLevelMap(geoJSON, data, div) {
                 const val = d.properties[valueName];
                 return val !== undefined ? 1.0 : 0.5;
             })
-            .attr('stroke', '#dcdcdc');
+            .attr('stroke', '#dcdcdc')
+            .on('mouseenter', d => {
+                updateToolTip(d, [d3.event.clientX, d3.event.clientY]);
+            })
+            .on('mousemove', d => {
+                updateToolTip(d, [d3.event.clientX, d3.event.clientY]);
+            })
+            .on('mouseleave', d => {
+                d3.select('#country-tooltip').style('display', 'none')
+            })
 
         if (d3.select(`#${valueName}-map-outline`).empty()) {
             const mapOutline = d3.geoGraticule()
@@ -55,9 +84,9 @@ function countryLevelMap(geoJSON, data, div) {
                 .attr('id', `${valueName}-map-outline`)
         }
 
-        if (d3.select(`#legend-${valueName}`).empty()) {
+        if (d3.select(`#country-legend-${valueName}`).empty()) {
             const legendG = group.append("g")
-                .attr("id", `legend-${valueName}`)
+                .attr("id", `country-legend-${valueName}`)
                 .attr("transform", `scale(0.6 0.6) translate(${0.6 * layout.bandwidth()}, ${0.05*visWidth})`)
         
             const legend = d3.legendColor()
@@ -100,6 +129,10 @@ function countryLevelMap(geoJSON, data, div) {
 
     all_timestamps = [...all_timestamps].sort();
 
+    // let first_day = timestampToDate(all_timestamps[0]);
+    // let last_day = timestampToDate(all_timestamps[all_timestamps.length-1]);
+
+    // let num_days = elapsedDays(first_day, last_day);
 
     const slider_div = div.append('div')
         .style('width', '100%')
@@ -115,12 +148,19 @@ function countryLevelMap(geoJSON, data, div) {
         .attr('value', 1)
         .on('input', function(d) {
             let selected_date = all_timestamps[this.value];
-
-            info_text.html(selected_date);
+            info_text.html(formatTimeStamp(selected_date));
             updateGraphData(data_index, selected_date);
             updateDataOnMap(stringency_data, mapLeft, colorStringency, 'stringency_index');
             updateDataOnMap(case_data, mapRight, colorConfirmed, 'confirmed');
         })
+
+    const tooltip = div.append('div')
+        .attr('id', 'country-tooltip')
+        .style('border', 'solid 1px black')
+        .style('padding', '5px')
+        .style('position', 'absolute')
+        .style('display', 'none')
+        .html('tooltip')
 
     const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
@@ -140,9 +180,12 @@ function countryLevelMap(geoJSON, data, div) {
         .paddingInner(0.05)
 
     const info_text = svg.append('text')
-        .attr('x', 0.5 * visWidth)
-        .attr('y', margin.top + 10)
-        .html(all_timestamps[0])
+        .attr('x', '50%')
+        .attr('y', '10%')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .style('font', 'bold 30px serif')
+        .html(formatTimeStamp(all_timestamps[0]))
 
     const maps = svg.append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
