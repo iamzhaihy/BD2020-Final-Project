@@ -3,20 +3,18 @@ function countryLevelMap(geoJSON, data, div) {
         return `${timestamp.slice(0,4)}-${timestamp.slice(4,6)}-${timestamp.slice(6,8)}`;
     }
 
-    const updateToolTip = (datum, coords) => {
-        let valName;
-        if (datum.properties.hasOwnProperty('confirmed'))
-            valName = 'confirmed';
-        else
-            valName = 'stringency_index';
-        
-        let val = datum.properties[valName]
+    const updateToolTipContent = (props) => {
+        const [name, valName, val ] = props;
 
-        d3.select('#country-tooltip')
-            .style('top', coords[1])
-            .style('left', coords[0])
+        d3.select('#state-tooltip')
             .style('display', 'block')
-            .html(`${datum.properties.NAME}<br>${valName} : ${val}`)
+            .html(`${name}<br>${valName} : ${Number.parseFloat(val).toFixed(2)}`)
+    }
+
+    const updateToolTipPosition = (coords) => {
+        d3.select('#state-tooltip')
+            .style('top', coords[1])
+            .style('left', coords[0]+10)
     }
 
     const updateGraphData = (data_index, selected_date) => {
@@ -63,13 +61,17 @@ function countryLevelMap(geoJSON, data, div) {
             })
             .attr('stroke', '#dcdcdc')
             .on('mouseenter', d => {
-                updateToolTip(d, [d3.event.clientX, d3.event.clientY]);
+                updateToolTipContent([
+                    d.properties['NAME_EN'],
+                    valueName,
+                    d.properties[valueName]
+                ]);
             })
-            .on('mousemove', d => {
-                updateToolTip(d, [d3.event.clientX, d3.event.clientY]);
+            .on('mousemove', () => {
+                updateToolTipPosition([d3.event.pageX, d3.event.pageY]);
             })
-            .on('mouseleave', d => {
-                d3.select('#country-tooltip').style('display', 'none')
+            .on('mouseleave', () => {
+                d3.select('#state-tooltip').style('display', 'none')
             })
 
         if (d3.select(`#${valueName}-map-outline`).empty()) {
@@ -160,6 +162,7 @@ function countryLevelMap(geoJSON, data, div) {
         .style('padding', '5px')
         .style('position', 'absolute')
         .style('display', 'none')
+        .style('background', 'rgba(255,255,255,0.3)')
         .html('tooltip')
 
     const margin = { top: 20, right: 20, bottom: 20, left: 20 };
